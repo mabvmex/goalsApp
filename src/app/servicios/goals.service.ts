@@ -18,25 +18,33 @@ export class GoalsService {
     // this.listas.push(lista1, lista2);
     // console.log(this.listas);
 
-   }
+  }
 
-   crearLista(titulo: string) {
-     const nuevaLista = new Lista (titulo);
-     this.listas.push (nuevaLista);
-     this.guardarStorage();
-   }
+  crearLista(titulo: string) {
 
-   guardarStorage() {
-     localStorage.setItem('data', JSON.stringify(this.listas));
-   }
+    const nuevaLista = new Lista(titulo);
+    this.listas.push(nuevaLista);
+    this.guardarStorage();
+    return nuevaLista.id;
+  }
 
-   cargarStorage() {
-     if (localStorage.getItem('data')){
-      this.listas = JSON.parse (localStorage.getItem('data'));
-     } // else {
-      // this.listas = []; // El ese está de más porque cuando se inicializa la lista ya es tipo arreglo.
-     // }
-     // Si no tenemos nada guardada en el storage, dara null, hay que validar
-   }
+  obtenerLista(id: string | number) { // si se lee por el url o si se obtiene del arreglo
+    id = Number(id);  // necesitamos estar seguros que es siempre un numero
+    return this.listas.find(listaData => listaData.id === id); 
+  }
+
+
+  guardarStorage() {
+    localStorage.setItem('data', JSON.stringify(this.listas));
+  }
+
+  cargarStorage() {
+    if (localStorage.getItem('data')) {
+      this.listas = JSON.parse(localStorage.getItem('data'));
+    } // else {
+    // this.listas = []; // El ese está de más porque cuando se inicializa la lista ya es tipo arreglo.
+    // }
+    // Si no tenemos nada guardada en el storage, dara null, hay que validar
+  }
 
 }

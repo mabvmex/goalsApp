@@ -1,12 +1,12 @@
-<ion-header no-border> <!-- Encabezado de la tab -->
-  <ion-toolbar color='dark'> <!-- Titulo de pendientes -->
-    <ion-title color="tertiary"> 
-      GoalsApp! 
+<ion-header no-border>
+  <ion-toolbar color='dark'>
+    <ion-title color="tertiary">
+      GoalsApp - Listas!
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color='light'> <!-- <h1>hola mundo: ionic mode!</h1> -->
+<ion-content color='light'>
 
   <ion-list color='dark'>
     <ion-item color='dark' *ngFor="let lista of goalService.listas" detail>
@@ -14,11 +14,10 @@
     </ion-item>
   </ion-list>
 
-      <!-- fab placed to the top end -->
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="success" (click)="agregarLista()" >
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-  
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="tertiary" (click)="agregarLista()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
 </ion-content>

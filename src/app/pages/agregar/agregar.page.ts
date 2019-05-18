@@ -15,11 +15,11 @@ export class AgregarPage implements OnInit {
   nombreItem = '';
 
   constructor(
-    private GoalsService: GoalsService,
+    private goalsService: GoalsService,
     private router: ActivatedRoute,
   ) {
     const listaId = this.router.snapshot.paramMap.get('listaId');
-    this.lista = this.GoalsService.obtenerLista(listaId);
+    this.lista = this.goalsService.obtenerLista(listaId);
   }
 
 
@@ -31,8 +31,29 @@ export class AgregarPage implements OnInit {
     const nuevoItem = new ListaItem(this.nombreItem);
     this.lista.items.push(nuevoItem);
     this.nombreItem = '';
-    this.GoalsService.guardarStorage();
-}
+    this.goalsService.guardarStorage();
+  }
+
+  cambioCheck(item: ListaItem) {
+    // console.log(item);
+    const pendientes = this.lista.items.filter(itemData => !itemData.completado).length;
+
+    if (pendientes === 0) {
+      this.lista.terminadaEn = new Date();
+      this.lista.terminada = true;
+    } else {
+      this.lista.terminadaEn = null;
+      this.lista.terminada = false;
+    }
+    this.goalsService.guardarStorage();
+    console.log(this.goalsService.listas);
+  }
+
+  borrar(i: number) {
+    this.lista.items.splice( i, 1);
+    this.goalsService.guardarStorage();
+  }
+
 
   ngOnInit() {
   }

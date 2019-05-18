@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { GoalsService } from '../../servicios/goals.service';
+import { Router } from '@angular/router';
+import { Lista } from '../../models/lista.model';
 
 @Component({
   selector: 'app-listas',
@@ -7,8 +10,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListasComponent implements OnInit {
 
-  constructor() { }
+@Input() terminada = true;
 
-  ngOnInit() {}
+  constructor(
+// No se importa el servicio en el modulo del componente, solo se inyectan y se usan y el componente html se considera publico.
+    public goalsService: GoalsService,
+    private router: Router,
+  ) { }
+
+  ngOnInit() { }
+
+  listaSeleccionada(lista: Lista) {
+    if (this.terminada) {
+      this.router.navigateByUrl(`/tabs/tab2/agregar/${lista.id}`);
+    } else {
+    this.router.navigateByUrl(`/tabs/tab1/agregar/${lista.id}`);
+  }
+}
 
 }
+
+
+

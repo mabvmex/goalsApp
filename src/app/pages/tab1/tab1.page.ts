@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Lista } from '../../models/lista.model';
+// import { Lista } from '../../models/lista.model';
 import { AlertController } from '@ionic/angular';
 import { GoalsService } from '../../servicios/goals.service';
 
@@ -12,7 +12,7 @@ import { GoalsService } from '../../servicios/goals.service';
 export class Tab1Page {
 
   constructor(
-    public goalService: GoalsService,
+    public goalsService: GoalsService,
     private router: Router,
     private alertCtrl: AlertController) {
   }
@@ -42,7 +42,7 @@ export class Tab1Page {
             if (data.titulo.length === 0) {
               return;
             }
-            const listaId = this.goalService.crearLista(data.titulo);
+            const listaId = this.goalsService.crearLista(data.titulo);
             this.router.navigateByUrl(`/tabs/tab1/agregar/${listaId}`);
 
           }
@@ -51,7 +51,7 @@ export class Tab1Page {
     });
     await alert.present();
   }
-  listaSeleccionada(lista: Lista) {
-    this.router.navigateByUrl(`/tabs/tab1/agregar/${lista.id}`);
-  }
+  // listaSeleccionada(lista: Lista) {
+  //   this.router.navigateByUrl(`/tabs/tab1/agregar/${lista.id}`);
+  // }
 }

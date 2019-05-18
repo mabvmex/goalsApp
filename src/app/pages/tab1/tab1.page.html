@@ -1,21 +1,21 @@
 <ion-header no-border>
   <ion-toolbar color='dark'>
     <ion-title color="tertiary">
-      GoalsApp - Listas!
+      GoalsApp!
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color='light'>
 
-<app-listas></app-listas>
-
+<app-listas [terminada]="false"></app-listas>
+<!-- 
   <ion-list color='dark'>
-    <ion-item color='dark' *ngFor="let lista of goalService.listas" detail (click)="listaSeleccionada(lista)">
+    <ion-item color='dark' *ngFor="let lista of goalsService.listas" detail (click)="listaSeleccionada(lista)">
       <ion-label> {{lista.titulo}} </ion-label>
       <ion-note slot="end" color="secondary"> {{lista.items.length}} </ion-note>
     </ion-item>
-  </ion-list>
+  </ion-list> -->
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="tertiary" (click)="agregarLista()">

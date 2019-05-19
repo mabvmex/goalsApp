@@ -28,9 +28,14 @@ export class GoalsService {
     return nuevaLista.id;
   }
 
+  borrarLista(lista: Lista) {
+    this.listas = this.listas.filter(listaData => listaData.id !== lista.id);
+    this.guardarStorage();
+  }
+
   obtenerLista(id: string | number) { // si se lee por el url o si se obtiene del arreglo
     id = Number(id);  // necesitamos estar seguros que es siempre un numero
-    return this.listas.find(listaData => listaData.id === id); 
+    return this.listas.find(listaData => listaData.id === id);
   }
 
 

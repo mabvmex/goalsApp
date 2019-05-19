@@ -1,6 +1,6 @@
 <ion-list color='dark'>
 
-  <ion-item-sliding *ngFor="let lista of goalsService.listas">
+  <ion-item-sliding *ngFor="let lista of goalsService.listas | filtroCompletado: terminada">
 
     <ion-item color='dark' detail (click)="listaSeleccionada(lista)">
       <ion-label> {{lista.titulo}} </ion-label>

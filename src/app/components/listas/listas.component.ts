@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { AlertController, IonList } from '@ionic/angular';
 import { GoalsService } from '../../servicios/goals.service';
+import { Router } from '@angular/router';
 import { Lista } from '../../models/lista.model';
 
 @Component({
@@ -10,12 +11,14 @@ import { Lista } from '../../models/lista.model';
 })
 export class ListasComponent implements OnInit {
 
+  @ViewChild(IonList) lista: IonList;
   @Input() terminada = true;
 
   constructor(
     // No se importa el servicio en el modulo del componente, solo se inyectan y se usan y el componente html se considera publico.
     public goalsService: GoalsService,
     private router: Router,
+    private alertCtrl: AlertController,
   ) { }
 
   ngOnInit() { }
@@ -30,6 +33,42 @@ export class ListasComponent implements OnInit {
   borrarLista(lista: Lista) {
     this.goalsService.borrarLista(lista);
   }
+
+  async editarLista(lista: Lista) {
+    const alert = await this.alertCtrl.create({
+      header: 'Editar:',
+      inputs: [
+        {
+          name: 'titulo',
+          type: 'text',
+          value: (lista.titulo),
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            this.lista.closeSlidingItems();
+          }
+        },
+        {
+          text: 'Actualizar',
+          handler: (data) => {
+            if (data.titulo.length === 0) {
+              return;
+            }
+            lista.titulo = data.titulo;
+            this.goalsService.guardarStorage();
+            this.lista.closeSlidingItems();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+
 
 }
 
